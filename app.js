@@ -1,11 +1,24 @@
-const EventEmitter = require('events');
+// const {createReadStream} = require('fs');
+// const stream  = createReadStream('./content/big.txt',{encoding:'utf-8'});
 
-const customEmitter = new EventEmitter()
-//on - listen to an event
-//emit - emit an event
+// stream.on('data', (result) =>{
+//     console.log(result);
+// })
+function ra1(){  
+    return new Promise((resolve)=> {
+        for(let i = 0; i < 900000; i++){
+            for(let j =0; j < 10000;j++){
+                
+            }
+        }
+        resolve("wait over")
+    });
+}
 
-customEmitter.on('response', ()=> {
-    console.log(`data recieved`);
-})
-
-customEmitter.emit('response')
+async function ra(){
+    
+    var i = await ra1();
+    console.log("outside");
+}
+ra();
+console.log("Heello world");
