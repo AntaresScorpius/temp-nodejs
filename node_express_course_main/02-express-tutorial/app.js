@@ -1,47 +1,14 @@
-const http = require('http')
-const {readFileSync, read} = require('fs');
+const express = require('express')
+const app = express()
+const path = require('path')
 
-//get all files 
-//readFilesync used because using only onced
-const homepage = readFileSync('./navbar-app/index.html');
-const homeStyles = readFileSync('./navbar-app/styles.css');
-const homeImage = readFileSync('./navbar-app/logo.svg');
-const homeLogic = readFileSync('./navbar-app/browser-app.js');
-
-const server = http.createServer((req, res) => {
-   // console.log('user hit the server');
-   // console.log(req.url);
-    const url = req.url;
-    console.log(url);
-    if(url === '/'){
-        res.writeHead(200,{'content-type':'text/html'})
-        res.write(homepage)
-        res.end()
-    } else if(url === '/about'){
-        res.writeHead(200,{'content-type':'text/html'})
-        res.write('<h1>About page</h1>')
-        res.end()
-    }else if(url === '/styles.css'){
-            res.writeHead(200,{'content-type':'text/css'})
-            res.write(homeStyles)
-            res.end()
-        }
-    else if(url === '/logo.svg'){
-        res.writeHead(200,{'content-type':'image/svg+xml'})
-        res.write(homeImage)
-        res.end()
-    }
-    else if(url === '/browser-app.js'){
-        res.writeHead(200,{'content-type':'text/javascript'})
-        res.write(homeLogic)
-        res.end()
-    }
-    else{
-        res.writeHead(404,{'content-type':'text/html'})
-        res.write('<h1>404</h1>')
-        res.end()
-    }
-    
+app.get('/',(req,res)=>{
+     
+})
+app.get('*',(req,res)=>{
+    res.status(404).send('not found')
 })
 
-server.listen(5000)
+app.listen(5000, ()=> {
+    console.log('server is runing om 5000');
+})
