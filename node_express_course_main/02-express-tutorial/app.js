@@ -1,3 +1,4 @@
+const { json } = require('express')
 const express = require('express')
 const app = express()
 const {products} = require('./data')
@@ -24,8 +25,23 @@ app.get('/api/products/:productID/reviews/:reviewID',(req,res) =>{
     res.send('Hellllllo world')
 })
 app.get('/api/v1/query',(req,res)=>{
-    console.log(req.query)
-    console.log('hello jupiter');
+    //console.log(req.query)
+    const {search, limit} = req.query;
+    let sortedProducts = [...products]
+    
+    if(search){
+        sortedProducts = sortedProducts.filter((product)=>{
+            return product.name.startsWith(search)
+        })
+    }
+    if(limit){
+        sortedProducts = sortedProducts.slice(0,Number(limit))
+    }
+    if(sortedProducts.length < 1){
+       return res.status(200).json({success:true,data:[]})
+    }
+    res.status(200).json(sortedProducts)
+    //res.send('Hello saturn')
 })
 
 app.listen(5000, ()=> {
