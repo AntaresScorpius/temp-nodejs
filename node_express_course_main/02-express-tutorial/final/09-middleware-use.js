@@ -2,7 +2,11 @@ const express = require('express')
 const app = express()
 const logger = require('./logger')
 const authorize = require('./authorize')
+
 //  req => middleware => res
+//req => middleware => res
+//.use is invoked for every get
+// if path is provided then applies to all paths having path as root 
 app.use([logger, authorize])
 // api/home/about/products
 app.get('/', (req, res) => {
