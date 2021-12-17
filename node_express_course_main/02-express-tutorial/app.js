@@ -1,12 +1,31 @@
 const express = require('express')
 const app = express()
-const path = require('path')
+const {products} = require('./data')
+
+//app.use(express.static('./public'))
 
 app.get('/',(req,res)=>{
-     
+    res.send('<h1>Home page</h1><a href="/api/products">Producs</a>')
 })
-app.get('*',(req,res)=>{
-    res.status(404).send('not found')
+
+app.get('/api/products/:productID',(req,res) =>{
+    //console.log(req);
+    //console.log(req.params);
+    const {productID} = req.params;
+    const singleProducts = products.find(
+        (product)=> product.id === Number(productID))
+    if(!singleProducts){
+        return res.status(404).send("PRoduct does not exist")
+    }
+    return res.json(singleProducts) 
+})
+app.get('/api/products/:productID/reviews/:reviewID',(req,res) =>{
+    //console.log(req.params);
+    res.send('Hellllllo world')
+})
+app.get('/api/v1/query',(req,res)=>{
+    console.log(req.query)
+    console.log('hello jupiter');
 })
 
 app.listen(5000, ()=> {
