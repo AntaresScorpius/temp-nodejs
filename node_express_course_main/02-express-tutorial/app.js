@@ -3,11 +3,11 @@ const express = require('express')
 const app = express()
 const {products} = require('./data')
 const logger = require('./logger')
-
+const authorize = require('./authorize')
 //req => middleware => res
 //.use is invoked for every get
 // if path is provided then applies to all paths having path as root 
-app.use(logger)  // order matters before every get()
+app.use([logger,authorize])  // order matters before every get()
 app.get('/',(req,res)=>{
     res.send('Home')
 })
@@ -19,7 +19,7 @@ app.get('/api/products',(req,res)=>{
     res.send('Products')
 })
 app.get('/api/items',(req,res)=>{
-    
+    console.log(req.user);
     res.send('Ittems')
 })
 
