@@ -15,6 +15,7 @@ const createPerson = (req,res)=>{
     res.status(201).send({Success:true,person:name})
 }
 
+
 const createPersonPostman = (req,res)=>{
     const {id} = req.params
     const {name} = req.body
